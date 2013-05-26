@@ -1,21 +1,25 @@
 package com.kiribuki.packetcapture;
 
-import java.util.Date;
+
 import java.security.MessageDigest;
+
 
 public class PacketCapture {
 
-	private double Version=1.0;
-	private Date FechaCaptura;
-	private String nodeMAC=null;
-	private float longitud=0;
-	private float latitud=0;
-	private String fromMAC=null;
-	private String toMAC=null;
-	private String fromIP= null;
-	private String toIP = null;
-	private int RSSI;
-	private String SignalHash;
+	private double Version=1.0;  // Versión de la clases
+	private long FechaCaptura;   // Fecha de captura del paquete
+	private String nodeMAC=null; // MAC Address del NodeCapture
+	private float longitud=0;    // longitud de la posición del NodeCApture
+	private float latitud=0;     // latitud de la posición del NodeCapture
+	private String fromMAC=null; // MAC origen  
+	private String toMAC=null;   // MAC destino
+	private String BSSID = null; // BSSID; Basic Service Set Identifier
+	private String fromIP= null; // IP origen
+	private String toIP = null;  // IP destino
+	private int RSSI;            // Valor del RSSI
+	private int wirelen=0;       // Bytes del paquete capturado
+	private String TipoFrame;    // Tipo de paquete capturado
+	private String SignalHash;   // Hash de la señal capturada
 	
 	/*
 	 * 
@@ -25,11 +29,11 @@ public class PacketCapture {
 	}
 	
 	
-	public void SetFechaCaptura(Date nodeFechaCaptura) {
+	public void SetFechaCaptura(long  nodeFechaCaptura) {
 		FechaCaptura = nodeFechaCaptura;
 	}
 	
-	public Date GetFechaCaptura() {
+	public long GetFechaCaptura() {
 		return FechaCaptura;
 	}
 	
@@ -74,6 +78,14 @@ public class PacketCapture {
 		return toMAC;
 	}
 	
+	public void SetBSSID(String mac) {
+		BSSID= mac;
+	}
+	
+	public String GetBSSID() {
+		return BSSID;
+	}
+	
 	public void SetfromIP(String ip) {
 		fromIP= ip;
 	}
@@ -96,6 +108,24 @@ public class PacketCapture {
 	
 	public void SetRSSI(int signalRSSI) {
 		RSSI=signalRSSI;
+	}
+	
+	public int Getwirelen() {
+		return wirelen;
+	}
+	
+	public void Setwirelen(int signalwirelen) {
+		wirelen=signalwirelen;
+	}
+	
+	public String GetTipoFrame() {
+		return TipoFrame;
+	}
+	
+	public void SetTipoFrame(byte signaltipoframe) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%02x", signaltipoframe & 0xff));
+		TipoFrame=sb.toString();
 	}
 	
 	public void SetSignalHash(byte[] signal) {
